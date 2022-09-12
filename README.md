@@ -26,4 +26,10 @@ Później rozwinięto metodę dokonując poprawki na różnice w wariancjach.
 
 Zero-inflated data, sparse data są problemem z punktu widzenia wymiarowości; z powodu prawoskośnego rozkładu który generują modeluje się ten rozkład za pomocą ujemnego rozkładu dwumianowego.
 
+Metrykami alfa różnorodności są indeksy Chao 1, Shannon (Shannon-Wiener), Simpson i Pielou.
+
+Indeks Chao1 może być liczby tylko na liczbahc całkowitych.
+
+Indeks Shanonna przykłada większą wagę do mniej powszechnych gatunków. Indeks Shanonna H' zwykł nie przekraczać 5.0. 
+
 </details>
