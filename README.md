@@ -32,4 +32,17 @@ Indeks Chao1 może być liczby tylko na liczbahc całkowitych.
 
 Indeks Shanonna przykłada większą wagę do mniej powszechnych gatunków. Indeks Shanonna H' zwykł nie przekraczać 5.0. 
 
+Indeks Simpsona kładzie większą wagę na bardziej popularne gatunku, jego wartość waha się od 0 do prawie 1. Indeks ten jest względnie odporny na obecność rzadkich gatunków (dodajemy kwadraty prawdopodobieńśtw).
+
+Generalnie możemy wyróżnić dwie charakterystyki alfa róznorodności: równomierność (evenness) oraz bogactwo (richness). H0 dla evenness to "wszystkie gatunki w hipotetycznej społeczności (community) są równoliczne.
+
+Miary beta różnorodności możemy podzielić na binarne oraz ilościowe. Te pierwsze owzględniają tylko obecność lub nie dalego gatunku, natomiast ilościowe także liczebność.
+
+O ile obliczanie alfa różnorodności jest proste, o tyle sposób mierzenia beta jest kontrowersyjny. Najpopularniejszymi miarami jest wskaźnik Jaccarda (binarna) oraz Braya-Curtisa.  
+
+Wskaźnik Jaccarda można przedstawić w formie diagramu venna (proporcja części wspólnej do całości). Przyjmuje wartości od 0 (różne) do 1 (podobne).
+
+Miara Braya-Curtisa to proporcja oparta o metrykę taksówkową, przyjmuje wartości od 0 (podobne) do 1 (różne). Rzadkie gatunki mają niewielkie znaczenie dla wartości współczynnika (w mianowniku jest dodawanie liczbności gatunku z obu prób, a liczniku różnica).
+
+
 </details>
