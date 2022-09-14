@@ -44,5 +44,13 @@ Wskaźnik Jaccarda można przedstawić w formie diagramu venna (proporcja częś
 
 Miara Braya-Curtisa to proporcja oparta o metrykę taksówkową, przyjmuje wartości od 0 (podobne) do 1 (różne). Rzadkie gatunki mają niewielkie znaczenie dla wartości współczynnika (w mianowniku jest dodawanie liczbności gatunku z obu prób, a liczniku różnica).
 
+metody aglomeryzacyjne = klasteryzacja
+
+single-linkage agglomerative clustering = metoda najbliższego sąsiada. Są jeszcze complete-linkage (najdalższy sąsiad) oraz average linkage.
+
+Klasteryzacja Warda - taka jakby ANOVA, grupowanie aby minimalizować wariancję
+
+
+
 
 </details>
