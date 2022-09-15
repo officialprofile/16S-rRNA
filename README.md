@@ -20,6 +20,14 @@ Brak złotych standardów pod kątem QC, filtorwania i ogólnie analizy.
 
 PERMANOVA jest testem nieparametrycznym.
 
+Analiza mocy jest stosowana w celu ustalenia minimalnej liczebności próby potrzebnej do wykrycia efektu o zadanej wielkości. Ewentualnie możemy jej użyć do wyznaczenia mocy, gdy znamy wielkosć efektu oraz liczebność próby. Zbyt duża liczebność też stanowi problem, gdyż wtedy będziemy wykrywać zbyt małe efekty. 
+
+W przypadku testu t moc zależy od: całkowitej liczebności prób, stosunku wielkości jednej próby do drugiej, alfyy, wielkości efektu, odchylenia standardowego.
+
+Moc, wielkość efektu, wielkość próby i alfa są wzajemnie powiązanymi parametrami, tj. każdy jest funkcją pozostałych trzech.
+
+Test nieparametryczny może być mocniejszy od swojego parametrycznego odpowiednika gdy założenia nie są spełnione.
+
 UniFrac nieważony uwzględnia tylko obecność lub nieobecność danych gatunków, natomiast ważony uwzględnia dodatkowo informację na temat liczebności, którą wykorzystuje jako wagę dla drzewa filogenetycznego, na podstawie którego obliczana jest odległość.
 
 Później rozwinięto metodę dokonując poprawki na różnice w wariancjach.
@@ -49,7 +57,6 @@ metody aglomeryzacyjne = klasteryzacja
 single-linkage agglomerative clustering = metoda najbliższego sąsiada. Są jeszcze complete-linkage (najdalższy sąsiad) oraz average linkage.
 
 Klasteryzacja Warda - taka jakby ANOVA, grupowanie aby minimalizować wariancję
-
 
 
 
