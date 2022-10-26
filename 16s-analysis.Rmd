@@ -28,7 +28,6 @@ calculate_abundance = function(p, gen, transpose = F, gr = F){
 ```
 
 
-
 ```{r}
 ASVs                <- read_qza("table.qza")
 OTU                 <- otu_table(as.data.frame(ASVs$data), taxa_are_rows = T)
@@ -58,6 +57,8 @@ physeq
 
 plot_bar(physeq, fill = "Phylum")
 
+plot_richness(physeq, measures = c("Chao1", "Shannon"), x = "group", color = "group")
+
 plot_bar(physeq, fill = "group")
 
 plot_bar(physeq, fill = "Phylum", facet_grid = ~Phylum)
@@ -68,10 +69,91 @@ physeq_filter@otu_table = physeq_filter@otu_table[, !(colnames(physeq_filter@otu
 
 plot_bar(physeq_filter, fill = "Phylum")
 
-physeq_norm <-normalise_data(physeq_filter, norm.method = "varstab")
+#ewentualnie randomsubsample, który automatyczne wyłącza próby
+physeq_norm <- normalise_data(physeq_filter, norm.method = "proportion")
 
 plot_bar(physeq_norm, fill = "Phylum")
 ```
+
+```{r}
+physeq_fam <- microbiome::aggregate_rare(physeq, level = "Class", detection = 50/100, prevalence = 70/100)
+
+physeq.fam.rel <- microbiome::transform(physeq_fam, "compositional")
+
+physeq.fam.rel <- physeq %>%
+  aggregate_rare(level = "Class", detection = 50/100, prevalence = 70/100) %>%
+  microbiome::transform(transform = "compositional")
+
+plot_composition(physeq.fam.rel,sample.sort = "group", x.label = "sample") + theme(legend.position = "bottom") + scale_fill_brewer("Class", palette = "Paired") + theme_bw() + theme(axis.text.x = element_text(angle = 90)) + ggtitle("Relative abundance") + theme(legend.title = element_text(size = 18))
+
+```
+
+```{r}
+p <- plot_taxa_heatmap(physeq,
+                  subset.top = 25,
+                  VariableA = c("group","sample"),
+                  transformation = "log10",
+                  cluster_rows = T,
+                  cluster_cols = F,
+                  show_colnames = F,
+                  heatcolors = colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100),
+                )
+#the plot is stored here
+p$plot
+```
+
+```{r}
+h.map <- plot_heatmap(physeq.fam.rel, method="PCoA", distance="bray", taxa.label = "Class", sample.order = unique(sample_names(physeq))) + facet_grid(~group, scales = "free_x", drop = TRUE) + theme_bw() + theme(axis.text.x = element_text(face = "bold", angle = 45, hjust = 1)) + theme(legend.key = element_blank(),strip.background = element_rect(colour="black", fill="white"))
+
+# Make bacterial names italics
+h.map <- h.map + theme(axis.text.y = element_text(colour = 'black', size = 10, face = 'italic'))
+
+# Change the color palette
+h.map <- h.map + scale_fill_distiller("Abundance", palette = "RdYlBu")
+
+# clean the x-axis
+h.map <- h.map + rremove("x.text")
+```
+
+```{r}
+physeq_df <- microbiomeutilities::phy_to_ldf(physeq_fam, 
+                                         transform.counts = "compositional")
+
+# An additonal column Sam_rep with sample names is created for reference purpose
+colnames(physeq_df)
+
+# Box plot at Family level
+
+ggstripchart(physeq_df, "group", "Abundance", 
+             facet.by = "Class", color = "group",
+             palette = "jco") + rremove("x.text")
+```
+
+```{r}
+physeq_top_50 <- subset_taxa(physeq, Kingdom=="Bacteria")
+physeq_top_50 <- prune_taxa(names(sort(taxa_sums(physeq_top_50),TRUE)[1:50]), physeq_top_50)
+
+# Default plot tree
+plot_tree(physeq_top_50)
+
+# Add genus labels to the tree and bootstrap values
+plot_tree(physeq_top_50, label.tips="Genus", ladderize="left")
+
+# Remove bootstrap values
+plot_tree(physeq_top_50, nodelabf=nodeplotblank, label.tips="Genus", ladderize="left")
+
+# Color the nodes by category
+plot_tree(physeq_top_50, nodelabf=nodeplotblank, label.tips="Genus", ladderize="left", color="group")
+
+# Add size by abundance
+plot_tree(physeq_top_50, nodelabf=nodeplotblank, label.tips="Genus", ladderize="left", color="group", size="abundance")
+
+# Convert to radial tree
+plot_tree(physeq_top_50, nodelabf=nodeplotblank, label.tips="Genus", ladderize="left", color="group") + coord_polar(theta="y")
+```
+
+
+
 
 Top 20 najczęstszych OTU
 ```{r}
@@ -85,7 +167,13 @@ tax_table(physeq_top20)[, "Family"] %>% as.vector()
 
 plot_heatmap(physeq_top20, "PCoA", "bray", low="#000033", high="#CCFF66")
 
+plot_heatmap(physeq_top20, "NMDS", "bray", low="#000033", high="#CCFF66")
+
 plot_tree(physeq_top20, ladderize = "left", color = "group", shape = "group")
+
+TopNGenus <- names(sort(taxa_sums(physeq), TRUE)[1:5])
+> Top5Genus <- prune_taxa(TopNGenus, physeq)
+> plot_heatmap(Top5Genus)
 ```
 
 ```{r}
@@ -138,9 +226,9 @@ ggplot(shanon_div, aes(y = shannon, x = group, fill = group)) + geom_boxplot() +
 
 
 ```{r}
-tax_table(physeq_norm)
+tax_table(physeq)
 
-corncob <- bbdml(formula = . ~ , phi.formula ~ group, data = otu_table(physeq))
+corncob <- bbdml(formula = 679cf36ecddf4cc82fa601bf915012ac ~ 1, phi.formula ~ 1, data = physeq)
 
 summary(physeq)
 ```
@@ -625,5 +713,44 @@ ggplot(sigtabgen, aes(y=Genus, x=log2FoldChange, color=Phylum)) +
 ```
 
 
+```{r}
+physeq_rarefy <- rarefy_even_depth(physeq, rngseed=1, sample.size=0.9*min(sample_sums(physeq)), replace=F)
+
+#Convert phyloseq object ot DeSeq
+bsdds <- phyloseq_to_deseq2(physeq_rarefy, ~ group)
+gm_mean <- function(x, na.rm=TRUE){
+  exp(sum(log(x[x > 0]), na.rm=na.rm) / length(x))
+}
+geoMeans <- apply(counts(bsdds), 1, gm_mean)
+bsdds <- estimateSizeFactors(bsdds, geoMeans = geoMeans)
+# DeSeq function tests for differential abundance 
+bsdds <- DESeq(bsdds, test="Wald", fitType="parametric")
+
+# Results function call creates a table of the results of the tests
+res <- results(bsdds, cooksCutoff = FALSE)
+alpha <- 0.99
+sigtab <- res[which(res$padj < alpha), ]
+sigtab <- cbind(as(sigtab, "data.frame"), as(tax_table(physeq_rarefy)[rownames(sigtab), ], "matrix"))
+head(sigtab)
+
+# Cleaning up the table a little for legibility
+posigtab <- sigtab[sigtab[, "log2FoldChange"] > 0, ]
+posigtab <- posigtab[, c("baseMean", "log2FoldChange", "lfcSE", "padj", "Phylum", "Class", "Family", "Genus")]
+
+# Bar plot showing the log2-fold-change, showing Genus and Phylum. Uses some ggplot2 commands
+sigtabgen <- subset(sigtab, !is.na(Genus))
+# Phylum order
+x <- tapply(sigtabgen$log2FoldChange, sigtabgen$Phylum, function(x) max(x))
+x <- sort(x, TRUE)
+sigtabgen$Phylum = factor(as.character(sigtabgen$Phylum), levels=names(x))
+# Genus order
+x <- tapply(sigtabgen$log2FoldChange, sigtabgen$Genus, function(x) max(x))
+x <- sort(x, TRUE)
+sigtabgen$Genus = factor(as.character(sigtabgen$Genus), levels=names(x))
+ggplot(sigtabgen, aes(y=Genus, x=log2FoldChange, color=Phylum)) + 
+  geom_vline(xintercept = 0.0, color = "gray", size = 0.5) +
+  geom_point(size=6) + 
+  theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5))
+```
 
 

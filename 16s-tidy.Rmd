@@ -1,0 +1,55 @@
+```{r}
+```
+
+
+```{r}
+physeq <- qza_to_phyloseq("table.qza", "rooted-tree.qza", "taxonomy.qza","sample_metadata.tsv")
+colnames(physeq@otu_table) = toupper(colnames(physeq@otu_table))
+rownames(physeq@sam_data) = toupper(rownames(physeq@sam_data))
+
+physeq_filter = physeq
+physeq_filter@sam_data = physeq_filter@sam_data[!(rownames(physeq_filter@sam_data) %in% c('S36')), ]
+physeq_filter@otu_table = physeq_filter@otu_table[, !(colnames(physeq_filter@otu_table) %in% c('S36'))]
+
+physeq_norm <- normalise_data(physeq_filter, norm.method = "proportion")
+```
+
+
+```{r}
+ds_phylum = calculate_abundance(p = physeq_norm, gen = "Phylum", transpose = T)
+write.csv(ds_phylum, 'phylum_abundance.csv')
+ggplot(ds_phylum, aes(x = Sample, y = Abundance, fill = Phylum)) + geom_bar(stat = 'identity') + theme_classic() +
+  scale_fill_viridis(option="G", discrete = T, direction = -1) + 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, hjust=1, vjust = 0.5))
+plot_taxa_prevalence(physeq_norm, "Phylum") + scale_color_viridis(option="G", discrete = T, direction = -1) + 
+  theme_classic() + theme(legend.position = "none")
+
+ds_class = calculate_abundance(p = physeq, gen = "Class", transpose = T)
+write.csv(ds_class, 'class_abundance.csv')
+ggplot(ds_class, aes(x = Sample, y = Abundance, fill = Class)) + geom_bar(stat = "identity") + theme_classic() +
+  scale_fill_viridis(option="F", discrete = T, direction = -1) + 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, hjust=1, vjust = 0.5))
+plot_taxa_prevalence(physeq, "Class") + scale_color_viridis(option="F", discrete = T, direction = -1) + 
+  theme_classic() + theme(legend.position = "none")
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
