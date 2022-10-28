@@ -2,7 +2,7 @@
 
 <summary>Statistical Analysis of Microbiome Data with R</summary>
 
-Należy uwzględnić metodę przechowywanai prób. Ekstrakcja DNA ze świezych pod zamrożonych może wpłynąć strukture mikrobiomu. Dla przykładu, przechowywanie prób w -80 stopniach vs natychmiastowa ekstrakcja ma przełożenie na stosunek Firmicutes do Bacteroidetes w późniejszym PCRze.
+Należy uwzględnić metodę przechowywanai prób. Ekstrakcja DNA ze świezych lub zamrożonych może wpłynąć strukture mikrobiomu. Dla przykładu, przechowywanie prób w -80 stopniach vs natychmiastowa ekstrakcja ma przełożenie na stosunek Firmicutes do Bacteroidetes w późniejszym PCRze.
 
 OTU obejmują sekwencje które różnią się o nie więcej niż o 3% (gatunki), 5% (genus - rodzaj), 20% (phylum - gromada)
 
@@ -14,7 +14,7 @@ OTU nie powstają w oparciu o referencje (klasteryzacja a nie klasyfikacja), wi�
 
 16S rRNA seq jest w stanie tylko ocenić występowanie danych taksonów ale nie ich biologiczne funkcje.
 
-16s rRNA seq jest wykorzystywane tylko do ustalenai obecności znanych taksonów o poznanych markerach, które da się amplifikować.
+16s rRNA seq jest wykorzystywane tylko do ustalenia obecności znanych taksonów o poznanych markerach, które da się amplifikować.
 
 Brak złotych standardów pod kątem QC, filtorwania i ogólnie analizy.
 
@@ -57,7 +57,5 @@ metody aglomeryzacyjne = klasteryzacja
 single-linkage agglomerative clustering = metoda najbliższego sąsiada. Są jeszcze complete-linkage (najdalższy sąsiad) oraz average linkage.
 
 Klasteryzacja Warda - taka jakby ANOVA, grupowanie aby minimalizować wariancję
-
-
 
 </details>
