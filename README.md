@@ -1,6 +1,7 @@
 <details>
 
 <summary>Statistical Analysis of Microbiome Data with R</summary>
+https://doi.org/10.1007/978-981-13-1534-3
 
 Należy uwzględnić metodę przechowywanai prób. Ekstrakcja DNA ze świezych lub zamrożonych może wpłynąć strukture mikrobiomu. Dla przykładu, przechowywanie prób w -80 stopniach vs natychmiastowa ekstrakcja ma przełożenie na stosunek Firmicutes do Bacteroidetes w późniejszym PCRze.
 
