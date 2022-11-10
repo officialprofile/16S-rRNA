@@ -74,4 +74,6 @@ https://github.com/uw-madison-microbiome-hub/Microbiome_analysis_in-_R
 https://cran.r-project.org/web/packages/corncob/vignettes/corncob-intro.pdf
 
 https://www.nicholas-ollberding.com/post/introduction-to-the-statistical-analysis-of-microbiome-data-in-r/
+
+https://bioconductor.org/packages/release/bioc/vignettes/MicrobiotaProcess/inst/doc/MicrobiotaProcess.html
 </details>
