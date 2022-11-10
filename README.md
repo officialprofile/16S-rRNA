@@ -60,3 +60,18 @@ single-linkage agglomerative clustering = metoda najbliższego sąsiada. Są jes
 Klasteryzacja Warda - taka jakby ANOVA, grupowanie aby minimalizować wariancję
 
 </details>
+
+
+<details>
+
+<summary>Useful links</summary>
+https://rachaellappan.github.io/VL-QIIME2-analysis/
+
+https://github.com/BikLab/BITMaB2-Tutorials/blob/master/QIIME2-metabarcoding-tutorial-already-demultiplexed-fastqs.md
+
+https://github.com/uw-madison-microbiome-hub/Microbiome_analysis_in-_R
+
+https://cran.r-project.org/web/packages/corncob/vignettes/corncob-intro.pdf
+
+https://www.nicholas-ollberding.com/post/introduction-to-the-statistical-analysis-of-microbiome-data-in-r/
+</details>
